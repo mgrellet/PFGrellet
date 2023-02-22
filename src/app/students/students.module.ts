@@ -4,17 +4,10 @@ import {StudentFormComponent} from './components/student-form/student-form.compo
 import {StudentManagementComponent} from './components/student-management/student-management.component';
 import {StudentsRoutingModule} from "./students-routing.module";
 import {StudentsService} from "./services/students.service";
-import {MatTableModule} from "@angular/material/table";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import { CompleteNamePipe } from './pipes/complete-name.pipe';
-import { StudentEditFormComponent } from './components/student-edit-form/student-edit-form.component';
-import {MatCardModule} from "@angular/material/card";
-import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
-import {MatSelectModule} from "@angular/material/select";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
+import {CompleteNamePipe} from './pipes/complete-name.pipe';
+import {StudentEditFormComponent} from './components/student-edit-form/student-edit-form.component';
+import {MaterialModule} from "../shared/material/material.module";
+import {NotFoundComponent} from "../core/components/not-found/not-found.component";
 
 
 @NgModule({
@@ -23,20 +16,12 @@ import {MatNativeDateModule} from "@angular/material/core";
     StudentManagementComponent,
     CompleteNamePipe,
     StudentEditFormComponent,
-
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
     StudentsRoutingModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    MaterialModule,
   ],
   providers: [
     StudentsService

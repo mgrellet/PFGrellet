@@ -11,9 +11,5 @@ export class AppComponent {
   }
   title = '2PFGrellet';
   sideNavOpened = true;
-  redirectAddForm(){
-    console.log("redirect")
-    this.router.navigate(['students/form'])
-  }
 
 }
