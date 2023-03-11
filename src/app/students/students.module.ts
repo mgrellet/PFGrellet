@@ -8,6 +8,7 @@ import {CompleteNamePipe} from './pipes/complete-name.pipe';
 import {StudentEditFormComponent} from './components/student-edit-form/student-edit-form.component';
 import {MaterialModule} from "../shared/material/material.module";
 import {NotFoundComponent} from "../core/components/not-found/not-found.component";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {NotFoundComponent} from "../core/components/not-found/not-found.componen
     CommonModule,
     StudentsRoutingModule,
     MaterialModule,
+    HttpClientModule
   ],
   providers: [
     StudentsService

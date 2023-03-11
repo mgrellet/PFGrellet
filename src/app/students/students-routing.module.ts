@@ -4,9 +4,10 @@ import {StudentFormComponent} from "./components/student-form/student-form.compo
 import {StudentManagementComponent} from "./components/student-management/student-management.component";
 import {StudentEditFormComponent} from "./components/student-edit-form/student-edit-form.component";
 import {NotFoundComponent} from "../core/components/not-found/not-found.component";
+import {SessionGuard} from "../core/guards/session.guard";
 
 const routes: Routes = [{
-  path: 'students', children: [
+  path: '', canActivate: [SessionGuard], children: [
     {path: 'form', component: StudentFormComponent},
     {path: 'management', component: StudentManagementComponent},
     {path: 'edit-form', component: StudentEditFormComponent},

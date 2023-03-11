@@ -1,10 +1,20 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {NotFoundComponent} from "./core/components/not-found/not-found.component";
 import {MainComponent} from "./core/components/main/main.component";
+import {SessionGuard} from "./core/guards/session.guard";
 
 const routes: Routes = [
-  {path: 'main', component: MainComponent},
+  {path: 'main', canActivate: [SessionGuard], component: MainComponent},
+  {
+    path: 'students', canLoad: [SessionGuard],
+    loadChildren: () => import('./students/students.module')
+      .then((module) => module.StudentsModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module')
+      .then((module) => module.AuthModule)
+  },
   {path: '', redirectTo: 'main', pathMatch: 'full'},
 ];
 

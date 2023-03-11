@@ -1,23 +1,26 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="session$ | async as session">
   <button mat-icon-button (click)="sideNavOpened =! sideNavOpened">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Gestion Alumnos, cursos e inscripciones</span>
   <span class="spacer"></span>
-  <a mat-icon-button matTooltip="Agregar alumno" routerLink="/students/form">
-    <mat-icon >person_add</mat-icon>
+  <a *ngIf="session.activeSession" mat-icon-button matTooltip="Agregar alumno" routerLink="/students/form">
+    <mat-icon>person_add</mat-icon>
   </a>
 </mat-toolbar>
 
-<mat-sidenav-container>
+<mat-sidenav-container *ngIf="session$ | async as session">
   <mat-sidenav mode="side" [(opened)]="sideNavOpened">
-    <mat-list>
+
+    <mat-list *ngIf="session.activeSession">
       <a mat-list-item routerLink="/students/management">Alumnos</a>
       <mat-divider></mat-divider>
       <a mat-list-item>Cursos</a>
       <mat-divider></mat-divider>
       <a mat-list-item>Inscripciones</a>
       <mat-divider></mat-divider>
+      <a mat-list-item (click)="logout()">logout</a>
+
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>

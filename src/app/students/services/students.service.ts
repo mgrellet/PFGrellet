@@ -1,95 +1,33 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {Student} from "../../model/student";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpClient} from "@angular/common/http";
+import {env} from "../../../environment/environment";
 
 @Injectable()
 export class StudentsService {
 
-  private students: Student[] = [
-    {
-      id: 1,
-      firstName: 'Martin',
-      lastName: 'Grellet',
-      course: 'Angular',
-      email: 'martin@test.com',
-      startDate: new Date(2023, 0, 1),
-    },
-    {
-      id: 2,
-      firstName: 'Enzo',
-      lastName: 'Fernandez',
-      course: 'Angular',
-      email: 'enzo@test.com',
-      startDate: new Date(2023, 2, 2),
-    },
-    {
-      id: 3,
-      firstName: 'Julian',
-      lastName: 'Alvarez',
-      course: 'ReactJS',
-      email: 'julian@test.com',
-      startDate: new Date(),
-    }
-  ]
 
-  private students$: BehaviorSubject<Student[]>;
-
-  constructor(private snackBar: MatSnackBar) {
-    this.students$ = new BehaviorSubject<Student[]>(this.students);
+  constructor(private snackBar: MatSnackBar,
+              private http: HttpClient) {
   }
 
   getStudentList(): Observable<Student[]> {
-    return this.students$.asObservable();
-  }
-
-  addStudent(newStudent: Student): void {
-    newStudent.id = this.generateId();
-    this.students.push(newStudent);
-    this.students$.next(this.students);
-    this.openSnackBar(newStudent.firstName + " " + newStudent.lastName+ " agregado");
-  }
-
-  editStudent(editedStudent: Student): void {
-    let index = this.students.findIndex((s: Student) => {
-      return s.email === editedStudent.email;
-    });
-
-    if (index > -1) {
-      this.students[index] = editedStudent;
-      this.students$.next(this.students);
-      this.openSnackBar(editedStudent.firstName + " " + editedStudent.lastName+ " actualizado");
-
-    }
+    return this.http.get<Student[]>(`${env.apiURL}/students`);
 
   }
 
-  removeStudent(studentToRemove: Student) {
-    let index = this.students.findIndex((s: Student) => {
-      return s.id === studentToRemove.id;
-    });
-    console.log("to delete", this.students[index]);
-
-    if (index > -1) {
-      this.students.splice(index, 1);
-      this.students$.next(this.students);
-      this.openSnackBar(studentToRemove.firstName + " " + studentToRemove.lastName+ " eliminado");
-
-    }
+  addStudent(newStudent: Student): Observable<Student> {
+    return this.http.post<Student>(`${env.apiURL}/students`, newStudent)
   }
 
-  generateId(): number {
-    if(this.students.length === 0){
-      return 1;
-    }
-    // @ts-ignore
-    let maxId = Math.max(...this.students.map(s => s.id));
-    return maxId + 1;
+  editStudent(editedStudent: Student): Observable<Student> {
+    return this.http.put<Student>(`${env.apiURL}/students/${editedStudent.id}`, editedStudent);
   }
 
-  openSnackBar(message: string){
-    this.snackBar.open(message, '', {
-      duration: 3000
-    });
+  removeStudent(studentToRemove: Student): Observable<Student> {
+    return this.http.delete<Student>(`${env.apiURL}/students/${studentToRemove.id}`)
   }
+
 }

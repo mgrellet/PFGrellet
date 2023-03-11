@@ -21,11 +21,11 @@ export class StudentFormComponent implements OnInit {
   ]
 
   ngOnInit(): void {
-    let emailRegex: string = '^[a-z]+@[a-z]+\\.[a-z]{2,3}$';
+
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.pattern(emailRegex)]],
+      email: ['', [Validators.required, Validators.email]],
       course: ['', Validators.required],
       startDate: ['']
     })
@@ -41,7 +41,9 @@ export class StudentFormComponent implements OnInit {
       course: this.form.value.course,
       startDate: this.form.value.startDate
     }
-    this.service.addStudent(student);
-    this.router.navigate(['students/management']);
+    this.service.addStudent(student).subscribe((student: Student) => {
+      this.router.navigate(['students/management']);
+    });
+
   }
 }
