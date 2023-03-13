@@ -8,21 +8,24 @@
       <mat-error *ngIf="form.controls['user'].touched && form.controls['user'].errors?.['required']">
         Nombre requerido
       </mat-error>
+      <mat-error *ngIf="form.controls['user'].touched && form.controls['user'].errors?.['email']">
+        Formato email invalido
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="full-width" appearance="fill">
       <mat-label>Contraseña</mat-label>
       <input type="password" matInput formControlName="password" required autocomplete="off">
       <mat-error *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['required']">
-        Nombre requerido
+        Contraseña requerida
       </mat-error>
     </mat-form-field>
 
 
     <br>
     <hr>
-    <button mat-raised-button type="reset">Limpiar</button>
-    <button mat-raised-button color="primary"
+    <button id="btnClear" mat-raised-button type="reset">Limpiar</button>
+    <button id = "btnLogin" mat-raised-button color="primary"
             type="submit"
             [disabled]="form.invalid">
       Entrar

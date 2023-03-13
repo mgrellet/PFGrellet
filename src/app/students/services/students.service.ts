@@ -9,8 +9,7 @@ import {env} from "../../../environment/environment";
 export class StudentsService {
 
 
-  constructor(private snackBar: MatSnackBar,
-              private http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   getStudentList(): Observable<Student[]> {

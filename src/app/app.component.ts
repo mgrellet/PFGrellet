@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.session$ = this.sessionService.getSession();
   }
 
-  title = 'APIRESTGrellet';
+  title = '3PFGrellet';
   sideNavOpened = true;
 
   session$!: Observable<Session>
