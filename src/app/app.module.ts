@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "./shared/material/material.module";
 import {MainComponent} from './core/components/main/main.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {MainComponent} from './core/components/main/main.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [],
   bootstrap: [AppComponent]
