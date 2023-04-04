@@ -7,7 +7,7 @@ const initialState: StudentsState = {
   students: []
 }
 
-export const studentReducer = createReducer(
+export const studentsReducer = createReducer(
   initialState,
   on(loadStudents, state => {
     const newState: StudentsState = {

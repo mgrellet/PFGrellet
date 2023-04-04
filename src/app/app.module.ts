@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "./shared/material/material.module";
 import {MainComponent} from './core/components/main/main.component';
 import { StoreModule } from '@ngrx/store';
+import {ROOT_REDUCER} from "./state/app.state";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(ROOT_REDUCER),
   ],
   providers: [],
   bootstrap: [AppComponent]

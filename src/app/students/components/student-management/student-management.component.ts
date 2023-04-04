@@ -7,6 +7,10 @@ import {Router} from "@angular/router";
 import {SessionService} from "../../../core/service/session.service";
 import {Session} from "../../../model/session";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../state/app.state";
+import {loadStudents, studentsLoaded} from "../../../state/students.action";
+import {studentsLoadedSelector} from "../../../state/students.selectors";
 
 @Component({
   selector: 'app-student-management',
@@ -19,6 +23,7 @@ export class StudentManagementComponent implements OnInit {
               private router: Router,
               private sessionService: SessionService,
               private snackBar: MatSnackBar,
+              private store: Store<AppState>
   ) {
   }
 
@@ -30,10 +35,15 @@ export class StudentManagementComponent implements OnInit {
   dataSource!: MatTableDataSource<Student>;
 
   ngOnInit(): void {
+    this.store.dispatch(loadStudents())
     this.students$ = this.studentService.getStudentList();
     this.subscription = this.students$.subscribe((studentList: Student[]) => {
-      this.dataSource = new MatTableDataSource<Student>(studentList);
-    })
+      this.store.dispatch(studentsLoaded({students: studentList}));
+    });
+
+    this.store.select(studentsLoadedSelector).subscribe(studentFromStore => {
+      this.dataSource = new MatTableDataSource<Student>(studentFromStore);
+    });
 
     this.sessionService.getSession().subscribe((session: Session) => {
       console.log("get session from subscribe", session);
