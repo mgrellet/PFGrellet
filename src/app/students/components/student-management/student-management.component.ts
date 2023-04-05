@@ -8,9 +8,8 @@ import {SessionService} from "../../../core/service/session.service";
 import {Session} from "../../../model/session";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
-import {AppState} from "../../../state/app.state";
-import {loadStudents, studentsLoaded} from "../../../state/students.action";
-import {loadingStudentSelector, studentsLoadedSelector} from "../../../state/students.selectors";
+import {loadStudentsStates, studentsStatesLoaded} from "../../students-state.actions";
+import {loadingStudentSelector, studentsLoadedSelector} from "../../students-state.selectors";
 
 @Component({
   selector: 'app-student-management',
@@ -23,7 +22,7 @@ export class StudentManagementComponent implements OnInit {
               private router: Router,
               private sessionService: SessionService,
               private snackBar: MatSnackBar,
-              private store: Store<AppState>
+              private store: Store
   ) {
   }
 
@@ -37,10 +36,10 @@ export class StudentManagementComponent implements OnInit {
   loadingTable$!: Observable<boolean>
 
   ngOnInit(): void {
-    this.store.dispatch(loadStudents())
+    this.store.dispatch(loadStudentsStates())
     this.students$ = this.studentService.getStudentList();
     this.subscription = this.students$.subscribe((studentList: Student[]) => {
-      this.store.dispatch(studentsLoaded({students: studentList}));
+      this.store.dispatch(studentsStatesLoaded({students: studentList}));
     });
 
     this.loadingTable$ = this.store.select(loadingStudentSelector);

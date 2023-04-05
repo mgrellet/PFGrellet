@@ -9,6 +9,8 @@ import {StudentEditFormComponent} from './components/student-edit-form/student-e
 import {MaterialModule} from "../shared/material/material.module";
 import {NotFoundComponent} from "../core/components/not-found/not-found.component";
 import {HttpClientModule} from "@angular/common/http";
+import {StoreModule} from "@ngrx/store";
+import {reducer, studentsStateFeatureKey} from "./students-state.reducer";
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import {HttpClientModule} from "@angular/common/http";
     CommonModule,
     StudentsRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature(studentsStateFeatureKey, reducer)
+    //EffectsModule.forFeature([StudentsStateEffects])
   ],
   providers: [
     StudentsService
