@@ -10,7 +10,7 @@ import {MaterialModule} from "../shared/material/material.module";
 import {NotFoundComponent} from "../core/components/not-found/not-found.component";
 import {HttpClientModule} from "@angular/common/http";
 import {StoreModule} from "@ngrx/store";
-import {reducer, studentsStateFeatureKey} from "./students-state.reducer";
+import {reducer, studentsStateFeatureKey} from "./state/students-state.reducer";
 
 
 @NgModule({

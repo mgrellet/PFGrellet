@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {Student} from "../model/student";
+import {Student} from "../../model/student";
 
 export const loadStudentsStates = createAction(
   '[StudentsState] Load StudentsStates'

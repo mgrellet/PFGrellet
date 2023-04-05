@@ -1,6 +1,6 @@
 import {createFeature, createReducer, on} from '@ngrx/store';
 import * as StudentsStateActions from './students-state.actions';
-import {Student} from "../model/student";
+import {Student} from "../../model/student";
 
 export const studentsStateFeatureKey = 'studentsState';
 
