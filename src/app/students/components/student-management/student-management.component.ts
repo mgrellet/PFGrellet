@@ -37,10 +37,6 @@ export class StudentManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadStudentsStates())
-    this.students$ = this.studentService.getStudentList();
-    this.subscription = this.students$.subscribe((studentList: Student[]) => {
-      this.store.dispatch(studentsStatesLoaded({students: studentList}));
-    });
 
     this.loadingTable$ = this.store.select(loadingStudentSelector);
 

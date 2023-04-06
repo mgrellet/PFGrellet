@@ -11,6 +11,8 @@ import {NotFoundComponent} from "../core/components/not-found/not-found.componen
 import {HttpClientModule} from "@angular/common/http";
 import {StoreModule} from "@ngrx/store";
 import {reducer, studentsStateFeatureKey} from "./state/students-state.reducer";
+import {EffectsModule} from "@ngrx/effects";
+import {StudentsStateEffects} from "./state/students-state.effects";
 
 
 @NgModule({
@@ -26,8 +28,8 @@ import {reducer, studentsStateFeatureKey} from "./state/students-state.reducer";
     StudentsRoutingModule,
     MaterialModule,
     HttpClientModule,
-    StoreModule.forFeature(studentsStateFeatureKey, reducer)
-    //EffectsModule.forFeature([StudentsStateEffects])
+    StoreModule.forFeature(studentsStateFeatureKey, reducer),
+    EffectsModule.forFeature([StudentsStateEffects])
   ],
   providers: [
     StudentsService
