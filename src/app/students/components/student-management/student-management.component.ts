@@ -8,7 +8,7 @@ import {SessionService} from "../../../core/service/session.service";
 import {Session} from "../../../model/session";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
-import {loadStudentsStates} from "../../state/students-state.actions";
+import {deleteStudentStates, loadStudentsStates} from "../../state/students-state.actions";
 import {loadingStudentSelector, studentsLoadedSelector} from "../../state/students-state.selectors";
 
 @Component({
@@ -55,12 +55,12 @@ export class StudentManagementComponent implements OnInit {
     this.router.navigate(['students/edit-form', element]);
   }
 
-  deleteStudent(element: Student) {
-    this.studentService.removeStudent(element).subscribe((student: Student) => {
-      this.students$ = this.studentService.getStudentList();
-      this.ngOnInit();
-      this.openSnackBar(`${student.firstName} ${student.lastName} eliminado`);
-    });
+  deleteStudent(student: Student) {
+
+    this.store.dispatch(deleteStudentStates({student: student}));
+    this.ngOnInit();
+    this.openSnackBar(`${student.firstName} ${student.lastName} eliminado`);
+
   }
 
   openSnackBar(message: string) {

@@ -3,6 +3,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Student} from "../../../model/student";
 import {StudentsService} from "../../services/students.service";
+import {Store} from "@ngrx/store";
+import {StudentsState} from "../../state/students-state.reducer";
+import {editStudentStates} from "../../state/students-state.actions";
 
 @Component({
   selector: 'app-student-edit-form',
@@ -13,7 +16,8 @@ export class StudentEditFormComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder,
               private service: StudentsService,
-              private router: Router) {
+              private router: Router,
+              private store: Store<StudentsState>) {
   }
 
   form!: FormGroup;
@@ -45,8 +49,7 @@ export class StudentEditFormComponent implements OnInit {
       course: this.form.value.course,
       startDate: this.form.value.startDate
     }
-    this.service.editStudent(student).subscribe((student: Student) => {
-      this.router.navigate(['students/management']);
-    });
+    this.store.dispatch(editStudentStates({student: student}));
+
   }
 }

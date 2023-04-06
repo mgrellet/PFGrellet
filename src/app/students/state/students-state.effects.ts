@@ -38,7 +38,6 @@ export class StudentsStateEffects {
             map((student: Student) => {
                 this.router.navigate(['students/management']);
                 return StudentsStateActions.loadStudentsStates();
-
               }
             )
           )
@@ -46,8 +45,37 @@ export class StudentsStateEffects {
       )
     );
   });
-  /*
-  editStudent;
-  deleteStudent;*/
+
+  editStudentState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(StudentsStateActions.editStudentStates),
+      concatMap(({student}) => {
+          return this.studentsService.editStudent(student).pipe(
+            map((student: Student) => {
+                this.router.navigate(['students/management']);
+                return StudentsStateActions.loadStudentsStates();
+              }
+            )
+          )
+        }
+      )
+    );
+  });
+
+  deleteStudentStates$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(StudentsStateActions.deleteStudentStates),
+      concatMap(({student}) => {
+          return this.studentsService.removeStudent(student).pipe(
+            map((student: Student) => {
+                return StudentsStateActions.loadStudentsStates();
+              }
+            )
+          )
+        }
+      )
+    );
+  });
+
 
 }
