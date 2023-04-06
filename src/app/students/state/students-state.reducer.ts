@@ -21,6 +21,15 @@ export const reducer = createReducer(
   }),
   on(StudentsStateActions.studentsStatesLoaded, (state, {students}) => {
     return {...state, loading: false, students: students};
+  }),
+  on(StudentsStateActions.addStudentStates, (state, {student})=>{
+    return state;
+  }),
+  on(StudentsStateActions.editStudentStates, (state, {student: Student})=>{
+    return state;
+  }),
+  on(StudentsStateActions.deleteStudentStates, (state, {student: Student})=>{
+    return state;
   })
 );
 

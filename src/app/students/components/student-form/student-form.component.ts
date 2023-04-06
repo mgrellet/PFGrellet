@@ -3,6 +3,9 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Student} from "../../../model/student";
 import {StudentsService} from "../../services/students.service";
+import {Store} from "@ngrx/store";
+import {StudentsState} from "../../state/students-state.reducer";
+import {addStudentStates} from "../../state/students-state.actions";
 
 @Component({
   selector: 'app-student-form',
@@ -12,7 +15,8 @@ import {StudentsService} from "../../services/students.service";
 export class StudentFormComponent implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private service: StudentsService) {
+              private service: StudentsService,
+              private store: Store<StudentsState>) {
   }
 
   form!: FormGroup;
@@ -41,9 +45,8 @@ export class StudentFormComponent implements OnInit {
       course: this.form.value.course,
       startDate: this.form.value.startDate
     }
-    this.service.addStudent(student).subscribe((student: Student) => {
-      this.router.navigate(['students/management']);
-    });
+
+    this.store.dispatch(addStudentStates({student: student}));
 
   }
 }

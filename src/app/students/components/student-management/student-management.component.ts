@@ -8,7 +8,7 @@ import {SessionService} from "../../../core/service/session.service";
 import {Session} from "../../../model/session";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
-import {loadStudentsStates, studentsStatesLoaded} from "../../state/students-state.actions";
+import {loadStudentsStates} from "../../state/students-state.actions";
 import {loadingStudentSelector, studentsLoadedSelector} from "../../state/students-state.selectors";
 
 @Component({
