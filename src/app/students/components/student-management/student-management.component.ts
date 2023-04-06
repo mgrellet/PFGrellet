@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {Student} from "../../../model/student";
 import {StudentsService} from "../../services/students.service";
@@ -16,7 +16,7 @@ import {loadingStudentSelector, studentsLoadedSelector} from "../../state/studen
   templateUrl: './student-management.component.html',
   styleUrls: ['./student-management.component.css']
 })
-export class StudentManagementComponent implements OnInit {
+export class StudentManagementComponent implements OnInit, OnDestroy {
 
   constructor(private studentService: StudentsService,
               private router: Router,
@@ -25,6 +25,8 @@ export class StudentManagementComponent implements OnInit {
               private store: Store
   ) {
   }
+
+
 
   students$!: Observable<Student[]>;
   students!: Student[];
@@ -45,8 +47,11 @@ export class StudentManagementComponent implements OnInit {
     });
 
     this.sessionService.getSession().subscribe((session: Session) => {
-      console.log("get session from subscribe", session);
     })
+  }
+
+  ngOnDestroy(): void {
+    this.sessionService.getSession().subscribe().unsubscribe();
   }
 
   displayedColumns: string[] = ['name', 'email', 'course', 'startDate', 'actions'];
